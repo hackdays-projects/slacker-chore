@@ -9,6 +9,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Divider,
   NumberIncrementStepper,
   NumberDecrementStepper,
   Select,
@@ -89,13 +90,15 @@ function GroupTasks({ user, uid, db }) {
     });
   }, []);
   return (
-    <Box ml="10px">
-      <Text className="heading">Group Tasks</Text>
+    <Box m="16px">
+      <Text className="heading" mb="10px">
+        Group Tasks
+      </Text>
       {group === null ? (
         <Text>Join a group to see the group tasks</Text>
       ) : (
         <Box w="40vw">
-          <Text>{group.name}</Text>
+          <Text fontSize="xl">{group.name}</Text>
           {group.tasks === undefined || group.tasks === null ? (
             <Text>Your group has no tasks</Text>
           ) : (
@@ -103,13 +106,13 @@ function GroupTasks({ user, uid, db }) {
               borderRadius={10}
               border="1px"
               borderColor="gray.400"
+              height="250px"
               my="10px"
             >
               {Object.keys(group.tasks).map((task) => {
-                console.log(task);
                 return (
-                  <Box p={2} py={0} pt={2} w="full">
-                    <HStack>
+                  <Box p={4} py={0} pt={2} w="full">
+                    <HStack justify="space-between">
                       <Text>{group.tasks[task].name}</Text>
                       <Text>
                         every {group.tasks[task].num}{" "}

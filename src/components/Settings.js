@@ -91,7 +91,7 @@ function Settings({ user, uid, db }) {
       </Text>
       {group ? (
         <Box>
-          <Box>
+          <Box mb={6}>
             <Button colorScheme="blue" onClick={inviteMember}>
               Invite Member
             </Button>
@@ -107,7 +107,7 @@ function Settings({ user, uid, db }) {
               Type your friends email address here before hitting invite
             </FormHelperText>
           </FormControl>
-          <Button colorScheme="red" onClick={leaveGroup} mt={2} mb={4}>
+          <Button colorScheme="red" onClick={leaveGroup} mt={6} mb={4}>
             Leave Group
           </Button>
           <Members user={user} uid={uid} db={db}></Members>
