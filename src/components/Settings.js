@@ -61,7 +61,7 @@ function Settings({ user, uid, db }) {
 
   const getGroup = async () => {
     onValue(ref(db, "users/" + uid + "/group"), (snapshot) => {
-      if (snapshot.exists() && snapshot.val != "none") {
+      if (snapshot.exists() && snapshot.val() != "none") {
         setGroup(snapshot.val())
       } else setGroup(null);
     });
