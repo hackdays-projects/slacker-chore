@@ -73,7 +73,7 @@ function Invites({ user, uid, db }) {
     
     const dbRef = ref(db);
     const snapshot = await get(child(dbRef, "groups/" + groupuid + "/users"));
-    if (!snapshot.exists() || snapshot.val() == "none") {
+    if (snapshot.exists()) {
       set(ref(db, "groups/" + groupuid + "/users"), 
       snapshot.val().concat([{
         uid: uid,
