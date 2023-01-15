@@ -42,7 +42,7 @@ function MyTasks({ user, uid, db }) {
             Welcome {user.displayName} 👋
           </Text>
         </Box>
-        <Text>My Tasks</Text>
+        <Text pl={6}>My Tasks</Text>
         <Box key={uid} w="full">
           {!tasks ? null : (
             <VStack w="full" h="full" p={4} justifyContent="space-between">
