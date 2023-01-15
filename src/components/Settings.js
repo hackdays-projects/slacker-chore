@@ -28,7 +28,10 @@ function Settings({ user, uid, db }) {
         );
         set(ref(db, "groups/" + newUID), {
           name: inputTeamName,
-          users: [user.uid]
+          users: [{
+            uid: uid,
+            userName: user.displayName,
+          }]
         });
         setGroup(newUID);
       }
@@ -41,6 +44,7 @@ function Settings({ user, uid, db }) {
       invitee: inputInviteMember.replaceAll(".", " "),
       inviter: user.displayName,
       group: group,
+      groupName: inputTeamName,
     }]);
     setInputInviteMember("");
   }

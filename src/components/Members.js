@@ -35,12 +35,19 @@ import { CheckIcon } from '@chakra-ui/icons'
 function Members({ user, uid, db }) {
   const [members, setMembers] = useState(null)
 
-  function getGroup(groupuid) {
-    //console.log(uid)
-    onValue(ref(db, "groups/" + groupuid), (snapshot) => {
+  useEffect(() => {
+    getGroup();
+  }, []);
+
+  function getGroup() {
+    onValue(ref(db, "users/" + uid + "/group"), (snapshot) => {
       if (snapshot.exists() && snapshot.val() != "none") {
-        console.log(snapshot.val().users)
-        setMembers(snapshot.val().users);
+        onValue(ref(db, "groups/" + snapshot.val()), (snapshot) => {
+          if (snapshot.exists() && snapshot.val() != "none") {
+            console.log(snapshot.val().users)
+            setMembers(snapshot.val().users);
+          }
+        });
       }
     });
   }
@@ -69,9 +76,9 @@ function Members({ user, uid, db }) {
           {members ? (
             members.map((member) => {
               return (
-                <Tr key={member}>
-                  <Td>{getUser(member)}</Td>
-                  <Td> { getUser(member) == "CeNLV3soecgY4ZFZuZQ6B9vQ1Sw1" ? <CheckIcon /> : "" } </Td>
+                <Tr key={member.uid}>
+                  <Td>{member.userName}</Td>
+                  <Td isNumeric> {member.uid == "CeNLV3soecgY4ZFZuZQ6B9vQ1Sw1" ? <CheckIcon /> : "" } </Td>
                 </Tr>
               );
             })

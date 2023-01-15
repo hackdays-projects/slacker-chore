@@ -48,14 +48,21 @@ function Invites({ user, uid, db }) {
     );
   };
 
-  function getGroup(groupuid) {
+  const getGroup = async (groupuid) => {
     //console.log(uid)
-    onValue(ref(db, "groups/" + groupuid), (snapshot) => {
-      if (snapshot.exists() && snapshot.val() != "none") {
+    const dbRef = ref(db);
+    const snapshot = await get(child(dbRef, "groups/" + groupuid));
+    // onValue(ref(db, "groups/" + groupuid), (snapshot) => {
+    //   if (snapshot.exists() && snapshot.val() != "none") {
+    //     console.log(snapshot.val().name)
+    //     return snapshot.val().name;
+    //   }
+    // });
+
+    if (!snapshot.exists() || snapshot.val() == "none") {
         console.log(snapshot.val().name)
         return snapshot.val().name;
-      }
-    });
+    }
   }
 
   function joinTeam(groupuid) {
@@ -82,7 +89,7 @@ function Invites({ user, uid, db }) {
               return (
                 <Tr key={invite.inviter}>
                   <Td>{invite.inviter}</Td>
-                  <Td>{getGroup(invite.group)}</Td>
+                  <Td>{invite.groupName}</Td>
                   <Td isNumeric>
                     <Button colorScheme="blue" onClick={()=>joinTeam(invite.group)}>Join Team</Button>
                   </Td>
