@@ -1,6 +1,8 @@
 .App {
 }
 
+.red {color: #E56B6F;}
+
 .session {
   width: 100%;
   display: flex;
@@ -145,8 +147,8 @@ h1 {
 .slacker-text-logo{
   width: 344px;
   height: 123px;
-  left: 528px;
-  top: 200px;
+  left: 548px;
+  top: 474px;
 }
 .white-rectangle{
   width: 383px;
@@ -174,7 +176,7 @@ h1 {
 }
 
 .red-rectangle-2{
-  width: 197px;
+  width: 157px;
   height: 344px;
   left: 899px;
   top: 118px;
@@ -185,7 +187,7 @@ h1 {
 }
 .blue-rectangle-2 {
 
-  width: 380px;
+  width: 375px;
   height: 128px;
   left: 1104px;
   top: 334px;
@@ -207,7 +209,7 @@ h1 {
 }
 
 .purple-rectangle-two {
-  width: 297px;
+  width: 167px;
   height: 210px;
   left: 1103px;
   top: 116px;
@@ -215,4 +217,26 @@ h1 {
   background: #6D597A;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+}
+
+.lets-fix-that{
+  width: 403px;
+  height: 125px;
+  left: 580px;
+  top: 512px;
+  
+  font-family: 'League Spartan';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 69px;
+  line-height: 63px;
+  
+  color: #355070;
+}
+
+.login-button{
+  width: 257px;
+  height: 45px;
+  left: 0px;
+  top: 0px;
 }

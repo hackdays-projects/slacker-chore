@@ -18,8 +18,9 @@ import {
   VStack,
   Image,
   Text,
-  Center
+  Divider
 } from "@chakra-ui/react";
+import { FaGoogle } from 'react-icons/fa';
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { getDatabase, ref, set, onValue, off } from "firebase/database";
 import Home from "./components/Home";
@@ -108,7 +109,6 @@ function App() {
             <Box boxSize="65px" margin="3">
               <Image src="stacker-logo.png" /> 
             </Box>
-
           </HStack>
           <HStack justify="flex-start" w="full">
             <VStack ml="-50px">
@@ -120,7 +120,7 @@ function App() {
               <Box className="magenta-rectangle" margin="0"/>
             </VStack>
             <VStack> 
-              <Box className="slacker-text-logo" margin="5">
+              <Box className="slacker-text-logo" margin="10">
                 <Image src="text-logo.png"/>
               </Box>
               <Box className="white-rectangle" align="left">
@@ -129,10 +129,7 @@ function App() {
                   unorganized? <br/>
                   unhappy?
                 </Text>
-                <Button colorScheme="blue" onClick={logIn}>
-                  Sign In with Google
-
-                </Button>
+                
               </Box>
             </VStack>
             <VStack> <Box className="red-rectangle-2" margin="0"/> </VStack>
@@ -143,8 +140,19 @@ function App() {
               </HStack> 
               <Box className="blue-rectangle-2"/>
             </VStack>
+          </HStack>
+          <HStack>
+              <VStack>
+              <Text className="lets-fix-that" margin="0">
+                <br/>Let's <span className="red">Fix</span> That
+              </Text>
+              <Button className="login-button" leftIcon ={<FaGoogle />} colorScheme="blackAlpha" onClick={logIn}>
+                Continue with Google
+              </Button>
+              </VStack>
+          </HStack>
+          <HStack w = "full">
 
-            
           </HStack>
         </VStack>
         
