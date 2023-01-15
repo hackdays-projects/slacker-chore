@@ -239,3 +239,12 @@ h1 {
   top: 0px;
 }
 
+.heading {
+  font-family: 'League Spartan';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 40px;
+
+  color: #E56B6F;
+}

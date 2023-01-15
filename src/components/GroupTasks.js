@@ -13,6 +13,7 @@ import {
   NumberDecrementStepper,
   Select,
 } from "@chakra-ui/react";
+import "../App.css";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { ref, set, onValue, off } from "firebase/database";
@@ -89,7 +90,7 @@ function GroupTasks({ user, uid, db }) {
   }, []);
   return (
     <Box ml="10px">
-      <Text>Group Tasks</Text>
+      <Text className="heading">Group Tasks</Text>
       {group === null ? (
         <Text>Join a group to see the group tasks</Text>
       ) : (

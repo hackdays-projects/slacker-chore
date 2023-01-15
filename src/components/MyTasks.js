@@ -10,6 +10,7 @@ import {
 import Task from "./Task";
 import { useEffect, useState } from "react";
 import { onValue, ref } from "firebase/database";
+import "../App.css";
 
 const percentageC = 20;
 const numTasks = 20;
@@ -42,7 +43,9 @@ function MyTasks({ user, uid, db }) {
             Welcome {user.displayName} 👋
           </Text>
         </Box>
-        <Text pl={6}>My Tasks</Text>
+        <Text pl={6} className="heading">
+          My Tasks
+        </Text>
         <Box key={uid} w="full">
           {!tasks ? null : (
             <VStack w="full" h="full" p={4} justifyContent="space-between">
