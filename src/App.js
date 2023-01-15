@@ -129,6 +129,10 @@ function App() {
                   unorganized? <br/>
                   unhappy?
                 </Text>
+                <Button colorScheme="blue" onClick={logIn}>
+                  Sign In with Google
+
+                </Button>
               </Box>
             </VStack>
             <VStack> <Box className="red-rectangle-2" margin="0"/> </VStack>
@@ -143,10 +147,7 @@ function App() {
             
           </HStack>
         </VStack>
-        // <Button colorScheme="blue" onClick={logIn}>
-        //   Sign In with Google
-
-        // </Button>
+        
       ) : (
         <Box w="full">
           <Navbar toggleColorMode={toggleColorMode} colorMode={colorMode} logOut={logOut} user={user} uid={uid} db={db} setTab={setTab} ></Navbar>
