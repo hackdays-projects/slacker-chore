@@ -18,6 +18,7 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { getDatabase, ref, set, onValue, off } from "firebase/database";
 import Home from "./components/Home";
+import Navbar from "./components/Navbar";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAb-_cYPaJbujna2bPBXJYGSxxX5vX3AiQ",
@@ -39,6 +40,7 @@ function App() {
   const [uid, setUID] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
   const auth = getAuth();
+  const [tab, setTab] = useState("My Tasks");
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -101,22 +103,8 @@ function App() {
         </Button>
       ) : (
         <Box w="full">
-          <HStack
-            justifyContent="flex-end"
-            p={2}
-            bg={colorMode === "light" ? "gray.100" : "gray.800"}
-            borderBottom="1px"
-            borderColor={colorMode === "light" ? "gray.300" : "gray.500"}
-          >
-            <IconButton
-              onClick={toggleColorMode}
-              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            />
-            <Button colorScheme="blue" onClick={logOut}>
-              Logout
-            </Button>
-          </HStack>
-          {<Home user={user} uid={uid} db={db} />}
+          <Navbar toggleColorMode={toggleColorMode} colorMode={colorMode} logOut={logOut} user={user} uid={uid} db={db} setTab={setTab} ></Navbar>
+          {(tab == "My Tasks") ? <Home user={user} uid={uid} db={db} /> : (tab == "Group Tasks") ? "Hello Group" : "Im in settings"}
         </Box>
       )}
     </Box>
