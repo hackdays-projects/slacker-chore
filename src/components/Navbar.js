@@ -58,7 +58,7 @@ export default function Navbar({toggleColorMode, colorMode, logOut, user, uid, d
           />
           <HStack spacing={8} alignItems={'center'}>
           <Box boxSize='50px'>
-            <Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
+            <Image src='stacker-logo.png' alt='Dan Abramov' />
           </Box>
             <HStack
               as={'nav'}
