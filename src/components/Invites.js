@@ -24,10 +24,16 @@ import {
 
 
 function Invites({ user, uid, db }) {
+  const [invites,setInvites] = useState(null)
+
+  useEffect(() => {
+    getInvites();
+  }, [])
+
   const getInvites = () => {
     onValue(ref(db, "invites/" + user.email.replaceAll(".", " ")), (snapshot) => {
       if (snapshot.exists()) {
-        return snapshot.val();
+        setInvites(snapshot.val())
       }
     });
   }
@@ -44,8 +50,8 @@ function Invites({ user, uid, db }) {
     </Thead>
     <Tbody>
       { 
-        getInvites() ? 
-        getInvites().map((invite) => {
+        invites ? 
+        invites.map((invite) => {
           <Tr>
             <Th>{invite.inviter}</Th>
             <Th>{invite.group}</Th>
