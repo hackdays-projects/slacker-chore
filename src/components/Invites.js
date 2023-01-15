@@ -65,11 +65,24 @@ function Invites({ user, uid, db }) {
     }
   }
 
-  function joinTeam(groupuid) {
+  const joinTeam = async (groupuid) => {
     console.log(groupuid)
     set(ref(db, "users/" + uid + "/group"), 
       groupuid
     );
+    
+    const dbRef = ref(db);
+    const snapshot = await get(child(dbRef, "groups/" + groupuid + "/users"));
+    if (!snapshot.exists() || snapshot.val() == "none") {
+      set(ref(db, "groups/" + groupuid + "/users"), 
+      snapshot.val().concat([{
+        uid: uid,
+        userName: user.displayName,
+      }])
+    );
+    }
+
+    
   }
 
   return (
