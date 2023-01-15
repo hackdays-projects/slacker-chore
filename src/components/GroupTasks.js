@@ -98,9 +98,11 @@ function GroupTasks({ user, uid, db }) {
         <Text>Join a group to see the group tasks</Text>
       ) : (
         <Box w="40vw">
-          <Text fontSize="xl">{group.name}</Text>
+          <Text fontSize="2xl" mb="10px">
+            {group.name}
+          </Text>
           {group.tasks === undefined || group.tasks === null ? (
-            <Text>Your group has no tasks</Text>
+            <Text mb="10px">Your group has no tasks</Text>
           ) : (
             <VStack
               borderRadius={10}
