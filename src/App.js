@@ -18,7 +18,7 @@ import {
   VStack,
   Image,
   Text,
-  Divider
+  Card
 } from "@chakra-ui/react";
 import { FaGoogle } from 'react-icons/fa';
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
@@ -47,8 +47,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const auth = getAuth();
   const [tab, setTab] = useState("My Tasks");
-
+  
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const IMAGE = 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
   const logIn = async (e) => {
     await signInWithPopup(auth, provider);
@@ -105,14 +107,14 @@ function App() {
     <Box>
       {loggedIn == null ? null : !loggedIn ? (
         <VStack>
-          <HStack justify="flex-start" w="full" >
-            <Box boxSize="65px" margin="3">
+          <HStack justify="flex-start" w="full" > 
+            <Box boxSize="65px" margin="5">  {/*creates the top icon*/}
               <Image src="stacker-logo.png" /> 
             </Box>
           </HStack>
           <HStack justify="flex-start" w="full">
-            <VStack ml="-50px">
-              <Box className="blue-rectangle" margin="0"/>
+            <VStack ml="-50px">    {/*creates the cutoff effect at the left of the screen*/}
+              <Box className="blue-rectangle" margin="0"/>  {/* each of the rectangle boxes make one of the many rectangles on the screen. I got them somewhat centered but it is not perfect. I do not know how to do changing display size*/}
               <Box className="purple-rectangle" margin="0"/>
             </VStack> 
             <VStack>
@@ -146,7 +148,7 @@ function App() {
               <Text className="lets-fix-that" margin="0">
                 <br/>Let's <span className="red">Fix</span> That
               </Text>
-              <Button className="login-button" leftIcon ={<FaGoogle />} colorScheme="blackAlpha" onClick={logIn}>
+              <Button className="login-button" leftIcon ={<FaGoogle />} colorScheme="red" variant = "outline" onClick={logIn}> {/* creates a google icon, the import for this icon seems to cause a warning in the npm comp*/}
                 Continue with Google
               </Button>
               </VStack>
