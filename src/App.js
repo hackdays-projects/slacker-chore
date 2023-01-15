@@ -14,6 +14,11 @@ import {
   HStack,
   IconButton,
   useColorMode,
+  Flex,
+  VStack,
+  Image,
+  Text,
+  Center
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { getDatabase, ref, set, onValue, off } from "firebase/database";
@@ -98,9 +103,50 @@ function App() {
   return (
     <Box>
       {loggedIn == null ? null : !loggedIn ? (
-        <Button colorScheme="blue" onClick={logIn}>
-          Sign In with Google
-        </Button>
+        <VStack>
+          <HStack justify="flex-start" w="full" >
+            <Box boxSize="65px" margin="3">
+              <Image src="stacker-logo.png" /> 
+            </Box>
+
+          </HStack>
+          <HStack justify="flex-start" w="full">
+            <VStack ml="-50px">
+              <Box className="blue-rectangle" margin="0"/>
+              <Box className="purple-rectangle" margin="0"/>
+            </VStack> 
+            <VStack>
+              <Box className="red-rectangle" margin="0"/>
+              <Box className="magenta-rectangle" margin="0"/>
+            </VStack>
+            <VStack> 
+              <Box className="slacker-text-logo" margin="5">
+                <Image src="text-logo.png"/>
+              </Box>
+              <Box className="white-rectangle" align="left">
+                <Text className="slogan-text-un-prefix" margin="6">
+                  untidy? <br/>
+                  unorganized? <br/>
+                  unhappy?
+                </Text>
+              </Box>
+            </VStack>
+            <VStack> <Box className="red-rectangle-2" margin="0"/> </VStack>
+            <VStack align="flex-start">
+              <HStack>
+                <Box className="magenta-rectangle-2" margin="0"/>
+                <Box className="purple-rectangle-two" mr="-50px"/>
+              </HStack> 
+              <Box className="blue-rectangle-2"/>
+            </VStack>
+
+            
+          </HStack>
+        </VStack>
+        // <Button colorScheme="blue" onClick={logIn}>
+        //   Sign In with Google
+
+        // </Button>
       ) : (
         <Box w="full">
           <Navbar toggleColorMode={toggleColorMode} colorMode={colorMode} logOut={logOut} user={user} uid={uid} db={db} setTab={setTab} ></Navbar>
