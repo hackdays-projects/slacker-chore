@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@600&display=swap');
+
+
 .App {
 }
 
@@ -219,12 +222,7 @@ h1 {
   border-radius: 30px;
 }
 
-.lets-fix-that{
-  width: 403px;
-  height: 125px;
-  left: 580px;
-  top: 512px;
-  
+.lets-fix-that{  
   font-family: 'League Spartan';
   font-style: normal;
   font-weight: 600;

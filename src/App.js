@@ -18,10 +18,9 @@ import {
   VStack,
   Image,
   Text,
-  Card
+  Card,
 } from "@chakra-ui/react";
-import { FaGoogle } from 'react-icons/fa';
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { FaGoogle } from "react-icons/fa";
 import { getDatabase, ref, set, onValue, off } from "firebase/database";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -47,10 +46,11 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const auth = getAuth();
   const [tab, setTab] = useState("My Tasks");
-  
+
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const IMAGE = 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
+  const IMAGE =
+    "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
 
   const logIn = async (e) => {
     await signInWithPopup(auth, provider);
@@ -107,61 +107,86 @@ function App() {
     <Box>
       {loggedIn == null ? null : !loggedIn ? (
         <VStack>
-          <HStack justify="flex-start" w="full" > 
-            <Box boxSize="65px" margin="5">  {/*creates the top icon*/}
-              <Image src="stacker-logo.png" /> 
+          <HStack justify="flex-start" w="full">
+            <Box boxSize="65px" margin="5">
+              {" "}
+              {/*creates the top icon*/}
+              <Image src="stacker-logo.png" />
             </Box>
           </HStack>
-          <HStack justify="flex-start" w="full">
-            <VStack ml="-50px">    {/*creates the cutoff effect at the left of the screen*/}
-              <Box className="blue-rectangle" margin="0"/>  {/* each of the rectangle boxes make one of the many rectangles on the screen. I got them somewhat centered but it is not perfect. I do not know how to do changing display size*/}
-              <Box className="purple-rectangle" margin="0"/>
-            </VStack> 
-            <VStack>
-              <Box className="red-rectangle" margin="0"/>
-              <Box className="magenta-rectangle" margin="0"/>
+          <HStack justify="flex-start" w="full" overflowX="hidden">
+            <VStack ml="-50px">
+              <Box className="blue-rectangle" margin="0" />{" "}
+              {/* each of the rectangle boxes make one of the many rectangles on the screen. I got them somewhat centered but it is not perfect. I do not know how to do changing display size*/}
+              <Box className="purple-rectangle" margin="0" />
             </VStack>
-            <VStack> 
+            <VStack>
+              <Box className="red-rectangle" margin="0" />
+              <Box className="magenta-rectangle" margin="0" />
+            </VStack>
+            <VStack>
               <Box className="slacker-text-logo" margin="10">
-                <Image src="text-logo.png"/>
+                <Image src="text-logo.png" />
               </Box>
               <Box className="white-rectangle" align="left">
                 <Text className="slogan-text-un-prefix" margin="6">
-                  untidy? <br/>
-                  unorganized? <br/>
+                  untidy? <br />
+                  unorganized? <br />
                   unhappy?
                 </Text>
-                
               </Box>
             </VStack>
-            <VStack> <Box className="red-rectangle-2" margin="0"/> </VStack>
+            <VStack>
+              {" "}
+              <Box className="red-rectangle-2" margin="0" />{" "}
+            </VStack>
             <VStack align="flex-start">
               <HStack>
-                <Box className="magenta-rectangle-2" margin="0"/>
-                <Box className="purple-rectangle-two" mr="-50px"/>
-              </HStack> 
-              <Box className="blue-rectangle-2"/>
+                <Box className="magenta-rectangle-2" margin="0" />
+                <Box className="purple-rectangle-two" mr="-50px" />
+              </HStack>
+              <Box className="blue-rectangle-2" />
             </VStack>
           </HStack>
           <HStack>
-              <VStack>
+            <VStack>
               <Text className="lets-fix-that" margin="0">
-                <br/>Let's <span className="red">Fix</span> That
+                <br />
+                Let's <span className="red">Fix</span> That
               </Text>
-              <Button className="login-button" leftIcon ={<FaGoogle />} colorScheme="red" variant = "outline" onClick={logIn}> {/* creates a google icon, the import for this icon seems to cause a warning in the npm comp*/}
+              <Button
+                className="login-button"
+                leftIcon={<FaGoogle />}
+                colorScheme="red"
+                variant="outline"
+                onClick={logIn}
+              >
+                {" "}
+                {/* creates a google icon, the import for this icon seems to cause a warning in the npm comp*/}
                 Continue with Google
               </Button>
-              </VStack>
+            </VStack>
           </HStack>
-          <HStack w = "full">
-
-          </HStack>
+          <HStack w="full"></HStack>
         </VStack>
-        
       ) : (
         <Box w="full">
-          <Navbar toggleColorMode={toggleColorMode} colorMode={colorMode} logOut={logOut} user={user} uid={uid} db={db} setTab={setTab} ></Navbar>
-          {(tab == "My Tasks") ? <Home user={user} uid={uid} db={db} /> : (tab == "Group Tasks") ? "Hello Group" : "Im in settings"}
+          <Navbar
+            toggleColorMode={toggleColorMode}
+            colorMode={colorMode}
+            logOut={logOut}
+            user={user}
+            uid={uid}
+            db={db}
+            setTab={setTab}
+          ></Navbar>
+          {tab == "My Tasks" ? (
+            <Home user={user} uid={uid} db={db} />
+          ) : tab == "Group Tasks" ? (
+            "Hello Group"
+          ) : (
+            "Im in settings"
+          )}
         </Box>
       )}
     </Box>
