@@ -9,6 +9,7 @@ import {
   FormHelperText,
   Input,
 } from '@chakra-ui/react'
+import Invites from "./Invites.js";
 
 
 function Settings({ user, uid, db }) {
@@ -35,12 +36,12 @@ function Settings({ user, uid, db }) {
   }
 
   const inviteMember = async () => {
-    set(ref(db, "invites/" + inputInviteMember.replaceAll(".", " ")), {
+    set(ref(db, "invites/" + inputInviteMember.replaceAll(".", " ")), [{
       invitee: inputInviteMember.replaceAll(".", " "),
       inviter: user.displayName,
       group: group,
-    });
-    
+    }]);
+    setInputInviteMember("");
   }
 
   const leaveGroup = async () => {
@@ -93,7 +94,10 @@ function Settings({ user, uid, db }) {
           <FormLabel>Team Name</FormLabel>
           <Input type='text' value={inputTeamName} onChange={handleInputChangeTeamName} />
         </FormControl>
-        <Button colorScheme='blue' onClick={generateGroup} mt={2}>Create</Button>
+        <Button colorScheme='blue' onClick={generateGroup} mt={2} mb={10}>Create</Button>
+        <Box>
+          <Invites user={user} uid={uid} db={db}></Invites>
+        </Box>
       </Box>
       }
       
