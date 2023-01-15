@@ -30,39 +30,29 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-function Invites({ user, uid, db }) {
-  const [invites, setInvites] = useState(null);
+import { CheckIcon } from '@chakra-ui/icons'
 
-  useEffect(() => {
-    getInvites();
-  }, []);
-
-  const getInvites = () => {
-    onValue(
-      ref(db, "invites/" + user.email.replaceAll(".", " ")),
-      (snapshot) => {
-        if (snapshot.exists()) {
-          setInvites(snapshot.val());
-        }
-      }
-    );
-  };
+function Members({ user, uid, db }) {
+  const [members, setMembers] = useState(null)
 
   function getGroup(groupuid) {
     //console.log(uid)
     onValue(ref(db, "groups/" + groupuid), (snapshot) => {
       if (snapshot.exists() && snapshot.val() != "none") {
-        console.log(snapshot.val().name)
-        return snapshot.val().name;
+        console.log(snapshot.val().users)
+        setMembers(snapshot.val().users);
       }
     });
   }
 
-  function joinTeam(groupuid) {
-    console.log(groupuid)
-    set(ref(db, "users/" + uid + "/group"), 
-      groupuid
-    );
+  function getUser(useruid) {
+    //console.log(uid)
+    onValue(ref(db, "users/" + useruid), (snapshot) => {
+      if (snapshot.exists() && snapshot.val() != "none") {
+        console.log(snapshot.val().displayName)
+        return snapshot.val().displayName;
+      }
+    });
   }
 
   return (
@@ -72,26 +62,22 @@ function Invites({ user, uid, db }) {
         <Thead>
           <Tr>
             <Th>User</Th>
-            <Th>group name</Th>
-            <Th isNumeric>join</Th>
+            <Th isNumeric>slacker?</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {invites ? (
-            invites.map((invite) => {
+          {members ? (
+            members.map((member) => {
               return (
-                <Tr key={invite.inviter}>
-                  <Td>{invite.inviter}</Td>
-                  <Td>{getGroup(invite.group)}</Td>
-                  <Td isNumeric>
-                    <Button colorScheme="blue" onClick={()=>joinTeam(invite.group)}>Join Team</Button>
-                  </Td>
+                <Tr key={member}>
+                  <Td>{getUser(member)}</Td>
+                  <Td> { getUser(member) == "CeNLV3soecgY4ZFZuZQ6B9vQ1Sw1" ? <CheckIcon /> : "" } </Td>
                 </Tr>
               );
             })
           ) : (
             <Tr>
-              <Td>You have no invites</Td>
+              <Td>There are no members in this group yet</Td>
               <Td></Td>
               <Td isNumeric></Td>
             </Tr>
@@ -102,4 +88,4 @@ function Invites({ user, uid, db }) {
   );
 }
 
-export default Invites;
+export default Members;

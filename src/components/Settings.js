@@ -10,6 +10,7 @@ import {
   Input,
 } from '@chakra-ui/react'
 import Invites from "./Invites.js";
+import Members from "./Members.js";
 
 
 function Settings({ user, uid, db }) {
@@ -83,7 +84,8 @@ function Settings({ user, uid, db }) {
           <Input type='email'  value={inputInviteMember} onChange={handleInputChangeInviteMember} />
           <FormHelperText>Type your friends email address here before hitting invite</FormHelperText>
         </FormControl>
-        <Button colorScheme='red' onClick={leaveGroup} mt={2}>Leave Group</Button>
+        <Button colorScheme='red' onClick={leaveGroup} mt={2} mb={4}>Leave Group</Button>
+        <Members user={user} uid={uid} db={db}></Members>
        </Box>
       : 
       <Box>  
