@@ -70,27 +70,10 @@ function App() {
         setUID(userAuth.uid);
         setLoggedIn(true);
 
-        onValue(ref(db, "users/" + userAuth.uid + "/session"), (snapshot) => {
-          if (snapshot.exists()) {
-            const sessionActiveRef = ref(
-              db,
-              "sessions/" + snapshot.val() + "/active"
-            );
-            onValue(sessionActiveRef, (active) => {
-              if (active.exists()) {
-                if (!active.val()) {
-                  set(
-                    ref(db, "users/" + userAuth.uid + "/lastSession"),
-                    snapshot.val()
-                  );
-                  set(ref(db, "users/" + userAuth.uid + "/session"), "none");
-                  off(sessionActiveRef);
-                }
-              }
-            });
-          } else {
+        onValue(ref(db, "users/" + userAuth.uid), (snapshot) => {
+          if (!snapshot.exists()) {
             set(ref(db, "users/" + userAuth.uid), {
-              session: "none",
+              group: "none",
               name: userAuth.displayName,
             });
           }
