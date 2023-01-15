@@ -12,9 +12,6 @@ import {
   Box,
   Button,
   HStack,
-  IconButton,
-  useColorMode,
-  Flex,
   VStack,
   Image,
   Text,
@@ -23,7 +20,6 @@ import {
 import { FaGoogle } from "react-icons/fa";
 import { getDatabase, ref, set, onValue, off } from "firebase/database";
 import Home from "./components/Home";
-import Navbar from "./components/Navbar";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAb-_cYPaJbujna2bPBXJYGSxxX5vX3AiQ",
@@ -45,9 +41,6 @@ function App() {
   const [uid, setUID] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
   const auth = getAuth();
-  const [tab, setTab] = useState("My Tasks");
-
-  const { colorMode, toggleColorMode } = useColorMode();
 
   const IMAGE =
     "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -153,24 +146,7 @@ function App() {
           <HStack w="full"></HStack>
         </VStack>
       ) : (
-        <Box w="full">
-          <Navbar
-            toggleColorMode={toggleColorMode}
-            colorMode={colorMode}
-            logOut={logOut}
-            user={user}
-            uid={uid}
-            db={db}
-            setTab={setTab}
-          ></Navbar>
-          {tab == "My Tasks" ? (
-            <Home user={user} uid={uid} db={db} />
-          ) : tab == "Group Tasks" ? (
-            "Hello Group"
-          ) : (
-            "Im in settings"
-          )}
-        </Box>
+        <Home user={user} uid={uid} db={db} logOut={logOut} />
       )}
     </Box>
   );
