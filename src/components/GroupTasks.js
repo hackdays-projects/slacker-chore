@@ -18,12 +18,11 @@ import { useEffect, useState } from "react";
 import { ref, set, onValue, off } from "firebase/database";
 
 function GroupTasks({ user, uid, db }) {
+  const [groupID, setGroupID] = useState(null);
   const [group, setGroup] = useState(null);
-  const [groupName, setGroupName] = useState(null);
-  const [tasks, setTasks] = useState(null);
   const [input, setInput] = useState("");
   const [num, setNum] = useState("0");
-  const [occurence, setOccurence] = useState("Daily");
+  const [occurence, setOccurence] = useState(null);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -40,52 +39,83 @@ function GroupTasks({ user, uid, db }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const taskId = uuidv4();
-    set(ref(db, "groups/" + group + "/tasks/" + taskId), {
+    set(ref(db, "groups/" + groupID + "/tasks/" + taskId), {
       name: input,
       num: num,
       occurence: occurence,
     });
+    if (group && group.users) {
+      var today = new Date();
+      var userIndex = 0;
+      for (var i = 0; i < 30; i++) {
+        if (occurence === "day") {
+          today.setDate(today.getDate() + 1);
+        } else if (occurence === "week") {
+          today.setDate(today.getDate() + 7);
+        } else today.setMonth(today.getMonth() + 1);
+        set(
+          ref(
+            db,
+            "groups/" +
+              groupID +
+              "/schedule/" +
+              group.users[userIndex].uid +
+              "/" +
+              today.getTime()
+          ),
+          {
+            name: input,
+            done: false,
+          }
+        );
+        userIndex++;
+        if (userIndex >= group.users.length) userIndex = 0;
+      }
+    }
   };
 
   useEffect(() => {
     onValue(ref(db, "users/" + uid + "/group"), (snapshot) => {
       if (snapshot.exists()) {
         const groupID = snapshot.val();
-        setGroup(groupID);
-        onValue(ref(db, "groups/" + groupID + "/groupName"), (snapshot) => {
+        setGroupID(groupID);
+        onValue(ref(db, "groups/" + groupID), (snapshot) => {
           if (snapshot.exists()) {
-            setGroupName(snapshot.val());
-          }
-        });
-        onValue(ref(db, "groups/" + groupID + "/tasks"), (snapshot) => {
-          if (snapshot.exists()) {
-            setTasks(snapshot.val());
-            console.log(snapshot.val());
+            setGroup(snapshot.val());
           }
         });
       }
     });
   }, []);
   return (
-    <Box>
+    <Box ml="10px">
       <Text>Group Tasks</Text>
       {group === null ? (
         <Text>Join a group to see the group tasks</Text>
       ) : (
         <Box w="40vw">
-          <Text>{groupName}</Text>
-          {tasks === null ? (
+          <Text>{group.name}</Text>
+          {group.tasks === undefined || group.tasks === null ? (
             <Text>Your group has no tasks</Text>
           ) : (
-            <VStack borderRadius={10} border="1px" borderColor="gray.400">
-              {Object.keys(tasks).map((task) => {
+            <VStack
+              borderRadius={10}
+              border="1px"
+              borderColor="gray.400"
+              my="10px"
+            >
+              {Object.keys(group.tasks).map((task) => {
+                console.log(task);
                 return (
-                  <HStack>
-                    <Text>{tasks[task].name}</Text>
-                    <Text>
-                      every {tasks[task].num} {tasks[task].occurence}
-                    </Text>
-                  </HStack>
+                  <Box p={2} py={0} pt={2} w="full">
+                    <HStack>
+                      <Text>{group.tasks[task].name}</Text>
+                      <Text>
+                        every {group.tasks[task].num}{" "}
+                        {group.tasks[task].occurence}
+                      </Text>
+                    </HStack>
+                  </Box>
                 );
               })}
             </VStack>
