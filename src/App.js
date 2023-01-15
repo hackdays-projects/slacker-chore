@@ -60,31 +60,31 @@ function App() {
         setUID(userAuth.uid);
         setLoggedIn(true);
 
-        // onValue(ref(db, "users/" + userAuth.uid + "/session"), (snapshot) => {
-        //   if (snapshot.exists()) {
-        //     const sessionActiveRef = ref(
-        //       db,
-        //       "sessions/" + snapshot.val() + "/active"
-        //     );
-        //     onValue(sessionActiveRef, (active) => {
-        //       if (active.exists()) {
-        //         if (!active.val()) {
-        //           set(
-        //             ref(db, "users/" + userAuth.uid + "/lastSession"),
-        //             snapshot.val()
-        //           );
-        //           set(ref(db, "users/" + userAuth.uid + "/session"), "none");
-        //           off(sessionActiveRef);
-        //         }
-        //       }
-        //     });
-        //   } else {
-        //     set(ref(db, "users/" + userAuth.uid), {
-        //       session: "none",
-        //       name: userAuth.displayName,
-        //     });
-        //   }
-        // });
+        onValue(ref(db, "users/" + userAuth.uid + "/session"), (snapshot) => {
+          if (snapshot.exists()) {
+            const sessionActiveRef = ref(
+              db,
+              "sessions/" + snapshot.val() + "/active"
+            );
+            onValue(sessionActiveRef, (active) => {
+              if (active.exists()) {
+                if (!active.val()) {
+                  set(
+                    ref(db, "users/" + userAuth.uid + "/lastSession"),
+                    snapshot.val()
+                  );
+                  set(ref(db, "users/" + userAuth.uid + "/session"), "none");
+                  off(sessionActiveRef);
+                }
+              }
+            });
+          } else {
+            set(ref(db, "users/" + userAuth.uid), {
+              session: "none",
+              name: userAuth.displayName,
+            });
+          }
+        });
       } else {
         // User is signed out
         setLoggedIn(false);
